@@ -18,11 +18,12 @@ def get_URLs():
     
     return urls
 
-def translate(url, freq, pos, lang): 
+def translate(url, dict, freq, pos, lang): 
     pass 
 
 def create_CSV(freq, pos, lang): 
     output = ""
+    dict = {}
 
     for url in get_URLs: 
         output.append(translate(url, dict, freq, pos, lang))
