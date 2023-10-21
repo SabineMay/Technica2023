@@ -18,15 +18,15 @@ def get_URLs():
     
     return urls
 
-def create_small_CSV(url, dict, freq, pos, lang): 
+def get_small_CSV(url, dict, freq, pos, lang): 
     pass 
 
-def create_big_CSV(freq, pos, lang): 
+def get_big_CSV(freq, pos, lang): 
     output = ""
     dict = {}
 
     for url in get_URLs: 
-        output.append(translate(url, dict, freq, pos, lang))
+        output.append(create_big_CSV(url, dict, freq, pos, lang))
 
 
 @app.route("/")
