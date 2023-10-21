@@ -50,18 +50,22 @@ def get_tuples(url):
 
     print(tag)
 
-def get_small_CSV(url, dict, freq, pos, lang): 
+def get_count_dict(tuples): 
+   
+    pass 
+
+def get_small_CSV(url, dict, freq, pos, lang): # N, R, V, J
     tuples = get_tuples(url)
 
     # Filter out tuples with the wrong POS
     newTuples = []
 
     for tuple in tuples: 
-        if tuples[1] in pos: 
+        if tuples[1][0] in pos and tuples[1] != "RP": 
             newTuples.append(tuple)
 
     # Sort tuples by count
-    newTuples.sort(key=)
+    newTuples.sort(key=lambda x: )
 
     # Cut list off based on freq
 
