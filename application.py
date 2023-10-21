@@ -46,10 +46,13 @@ def get_tuples(url):
     print(tag)
 
 def get_count_dict(tuples): 
-   
     pass 
 
+def translate_tuple(tuple): 
+    pass
+
 def get_small_CSV(url, dict, freq, pos, lang): 
+    output = ""
     tuples = get_tuples(url)
 
     # Filter out tuples with the wrong POS (N, R, V, J)
@@ -60,13 +63,25 @@ def get_small_CSV(url, dict, freq, pos, lang):
             newTuples.append(tuple)
 
     # Sort tuples by count
-    newTuples.sort(key=lambda x: get_count_dict)
+    newTuples.sort(key=lambda x: get_count_dict[x])
 
     # Cut list off based on freq
+    numElems = int((freq/100)*len(newTuples))
+    if numElems == 0: 
+        numElems = 1
+
+    newTuples = newTuples[:numElems:]
+    translatedNewTuples = []
 
     # Translate
+    for newTuple in newTuples: 
+        translatedNewTuples.append(translate_tuple(newTuple))
 
     # Put in CSV format
+    for i in len(newTuples):
+        output+""
+        
+
 
 def get_big_CSV(freq, pos, lang): 
     output = ""
