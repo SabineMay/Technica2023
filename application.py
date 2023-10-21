@@ -51,6 +51,16 @@ def get_count_dict(tuples):
     counts = Counter(word for word, tag in tuples)
     return counts
 
+def expand_POS(pos):
+    if pos[0] == "N": 
+        return "Noun"
+    if pos[0] == "R":
+        return "Adverb"
+    if pos[0] == "V": 
+        return "Verb"
+    if pos[0] == "J":
+        return "Adjective"
+
 def translate_tuple(tuple): 
     pass
 
@@ -82,9 +92,9 @@ def get_small_CSV(url, dict, freq, pos, lang):
 
     # Put in CSV format
     for i in len(newTuples):
-        output+""
-        
-
+        output += f"{newTuples[i][0]} ({expand_POS(newTuples[i][1])}),{translatedNewTuples[i][0]}\n"
+    
+    return output
 
 def get_big_CSV(freq, pos, lang): 
     output = ""
