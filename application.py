@@ -5,6 +5,7 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import re
 from functools import reduce
+from collections import Counter
 import nltk
 from translate import Translator
 
@@ -41,12 +42,14 @@ def get_tuples(url):
 
     text = get_text(url)
     sections = nltk.word_tokenize(text)
-    tag = nltk.pos_tag(sections)
+    tuples = nltk.pos_tag(sections)
+    return tuples
 
-    print(tag)
+    #print(tag)
 
 def get_count_dict(tuples): 
-    pass 
+    counts = Counter(word for word, tag in tuples)
+    return counts
 
 def translate_tuple(tuple): 
     pass
