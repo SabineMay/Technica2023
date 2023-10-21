@@ -18,8 +18,20 @@ def get_URLs():
     
     return urls
 
-def 
+def create_small_CSV(url, dict, freq, pos, lang): 
+    pass 
+
+def create_big_CSV(freq, pos, lang): 
+    output = ""
+    dict = {}
+
+    for url in get_URLs: 
+        output.append(translate(url, dict, freq, pos, lang))
+
 
 @app.route("/")
 def main():
     return "<p>Hello, World!</p>"
+
+# this is my comment
+#TEST
