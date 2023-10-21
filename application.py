@@ -26,7 +26,7 @@ def get_big_CSV(freq, pos, lang):
     dict = {}
 
     for url in get_URLs: 
-        output.append(create_big_CSV(url, dict, freq, pos, lang))
+        output.append(get_small_CSV(url, dict, freq, pos, lang))
 
 
 @app.route("/")
