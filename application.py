@@ -54,8 +54,14 @@ def get_small_CSV(url, dict, freq, pos, lang):
     tuples = get_tuples(url)
 
     # Filter out tuples with the wrong POS
+    newTuples = []
+
+    for tuple in tuples: 
+        if tuples[1] in pos: 
+            newTuples.append(tuple)
 
     # Sort tuples by count
+    newTuples.sort(key=)
 
     # Cut list off based on freq
 
