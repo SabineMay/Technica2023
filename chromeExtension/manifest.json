@@ -1,0 +1,13 @@
+{
+    "manifest_version": 3,
+    "name": "URL Saver Extension",
+    "version": "1.0",
+    "description": "A simple extension to save the current URL.",
+    "permissions": ["activeTab", "downloads", "tabs", "scripting"],
+    "background": {
+      "service_worker": "background.js"
+    }, 
+    "action": {
+        "default_popup": "popup.html"
+    }
+  }
