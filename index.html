@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Generator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <label><input type="checkbox" name="language" value="French"> French</label>
+    <label><input type="checkbox" name="language" value="Spanish"> Spanish</label>
+    <label><input type="checkbox" name="language" value="Telugu"> Telugu</label>
+    <label><input type="checkbox" name="language" value="Hindi"> Hindi</label>
+    <label><input type="checkbox" name="language" value="Chinese"> Chinese</label>
+    <button id="generate">Generate</button>
+    <div id="output"></div>
+
+    <script>
+        $('#generate').click(function() {
+            let selectedLanguages = [];
+            $('input[name="language"]:checked').each(function() {
+                selectedLanguages.push($(this).val());
+            });
+
+            // Assuming your Flask server is running on localhost:5000
+            fetch('/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({languages: selectedLanguages}),
+            }).then(response => response.text())
+            .then(data => {
+                // Handle the response data from the server
+                $('#output').text(data);
+                console.log(data);
+                // E.g., you can display the data in a div or download it as a file
+            });
+        });
+    </script>
+</body>
+</html>

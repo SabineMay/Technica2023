@@ -137,8 +137,8 @@ def get_small_CSV(url, dict, freq, pos, lang):
     
     ISO = lang_code[lang]
 
-    translator = Translator(to_lang=ISO)
-    translated_big_string = translator.translate(big_string)
+    '''translator = Translator(to_lang=ISO)
+    translated_big_string = translator.translate(big_string)'''
     
     print(big_string)
     print(translated_big_string)
@@ -158,15 +158,46 @@ def get_big_CSV(freq, pos, lang):
     output = ""
     dict = {}
 
-    for url in get_URLs(): 
+    '''for url in get_URLs(): 
         output += get_small_CSV(url, dict, freq, pos, lang)
     
-    print("test" + output)
-    return "test" + output
+    print("test" + output)'''
+    return lang
 
 @app.route('/')
 def main(): 
-    return get_big_CSV(30, ["N", "R", "V", "J"], "French")
+    return open('index.html').read()
+
+@app.route('/generate', methods=['POST'])
+def generate_csv():
+    data = request.json
+    languages = data['languages']
+
+    if "French" in languages:
+        # You can customize the behavior based on received language
+        response = get_big_CSV(0, ["N", "R", "V", "J"], "French")
+    elif "Spanish" in languages:
+        # You can customize the behavior based on received language
+        response = get_big_CSV(0, ["N", "R", "V", "J"], "Spanish")
+    elif "Telugu" in languages:
+        # You can customize the behavior based on received language
+        response = get_big_CSV(0, ["N", "R", "V", "J"], "Telugu")
+    if "Hindi" in languages:
+        # You can customize the behavior based on received language
+        response = get_big_CSV(0, ["N", "R", "V", "J"], "Hindi")
+    if "Chinese" in languages:
+        # You can customize the behavior based on received language
+        response = get_big_CSV(0, ["N", "R", "V", "J"], "Chinese")
+
+    return response
+    
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+
+
 
 
 
