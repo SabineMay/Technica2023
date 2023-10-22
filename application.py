@@ -45,7 +45,7 @@ def get_tuples(url):
     sections = nltk.word_tokenize(text)
     tuples = nltk.pos_tag(sections)
 
-    #print(tuples)
+    print(tuples)
     return tuples
 
     #print(tag)
@@ -60,6 +60,13 @@ def expand_POS(pos):
     if pos[0] == "J":
         return "Adjective"
 
+def make_list(tuple):
+    #take tuple list removed of all characters and make it into one list
+    print("hello")
+
+
+
+
 def translate_tuple(tuple, lang):
     lang_code = {'Spanish':'es', 'Chinese':'zh', 'Tagalog':'tl', 'Vietnamese':'vi', 
              'French':'fr', 'Hindi':'hi', 'Urdu':'ur', 'Arabic':'ar', 'Telugu':'te',
@@ -71,6 +78,8 @@ def translate_tuple(tuple, lang):
     translation = translator.translate(tuple)
     print(translation)
     return translation
+
+
 
 def get_small_CSV(url, dict, freq, pos, lang): 
     output = ""
@@ -99,7 +108,7 @@ def get_small_CSV(url, dict, freq, pos, lang):
     if numElems == 0: 
         numElems = 1
 
-    newTuples = newTuples[:numElems:]
+    newTuples = newTuples[:10:]
     translations = []
 
     # Translate
@@ -144,4 +153,5 @@ def calculate_cube():
     result = number ** 3
     return jsonify({'result': result}) 
 '''
+
 
