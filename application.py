@@ -79,9 +79,12 @@ def get_small_CSV(url, dict, freq, pos, lang):
     # Filter out tuples with the wrong POS (N, R, V, J)
     newTuples = []
 
+    alphabet = re.compile("[A-Za-zÀ-ÖØ-öø-ÿ]+")
     for tuple in tuples: 
-        if tuple[1][0] in pos and tuples[1] != "RP": 
-            newTuples.append(tuple)
+        match = re.search(alphabet, tuple[0])
+        if match != None:
+            if tuple[1][0] in pos and tuples[1] != "RP": 
+                newTuples.append(tuple)
 
     # Sort tuples by count
     count_dict = {} 
@@ -92,7 +95,7 @@ def get_small_CSV(url, dict, freq, pos, lang):
         else: 
             count_dict[newTuple] = 1
 
-    newTuples.sort(key=lambda x: count_dict[x])
+    newTuples.sort(key=lambda x: count_dict[x], reverse=True)
 
     # Cut list off based on freq
     numElems = int((freq/100)*len(newTuples))
