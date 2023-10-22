@@ -13,15 +13,15 @@ app = Flask(__name__)
 
 def get_URLs(): 
     urls = []
-    directory = os.getcwd()
+    directory = os.path.join(os.getcwd(), "urls")
 
     for filename in os.listdir(directory):
         fPath = os.path.join(directory, filename)
 
-        if not os.path.isfile():
+        if not os.path.isfile(fPath):
             print("something went wrong, fPath is not a valid file path")
         else: 
-            urls.append(fPath.read())
+            urls.append(open(fPath).read())
     
     return urls
 
@@ -35,6 +35,7 @@ def get_text(url):
     lines = (line.strip() for line in text.splitlines())
     chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
     text = '\n'.join(chunk for chunk in chunks if chunk)
+    # print(text.lower())
     return text.lower()
     #https://stackoverflow.com/questions/328356/extracting-text-from-html-file-using-python
 
@@ -43,13 +44,11 @@ def get_tuples(url):
     text = get_text(url)
     sections = nltk.word_tokenize(text)
     tuples = nltk.pos_tag(sections)
+
+    #print(tuples)
     return tuples
 
     #print(tag)
-
-def get_count_dict(tuples): 
-    counts = Counter(word for word, tag in tuples)
-    return counts
 
 def expand_POS(pos):
     if pos[0] == "N": 
@@ -70,6 +69,8 @@ def translate_tuple(tuple, lang):
 
     translator = Translator(to_lang=ISO)
     translation = translator.translate(tuple)
+    
+    print(translation)
     return translation
 
 def get_small_CSV(url, dict, freq, pos, lang): 
@@ -84,7 +85,15 @@ def get_small_CSV(url, dict, freq, pos, lang):
             newTuples.append(tuple)
 
     # Sort tuples by count
-    newTuples.sort(key=lambda x: get_count_dict[x])
+    count_dict = {} 
+
+    for newTuple in newTuples: 
+        if newTuple in count_dict: 
+            count_dict[newTuple] += 1
+        else: 
+            count_dict[newTuple] = 1
+
+    newTuples.sort(key=lambda x: count_dict()[x])
 
     # Cut list off based on freq
     numElems = int((freq/100)*len(newTuples))
@@ -99,7 +108,7 @@ def get_small_CSV(url, dict, freq, pos, lang):
         translatedNewTuples.append(translate_tuple(newTuple))
 
     # Put in CSV format
-    for i in len(newTuples):
+    for i in range(len(newTuples)):
         output += f"{newTuples[i][0]} ({expand_POS(newTuples[i][1])}),{translatedNewTuples[i][0]}\n"
     
     return output
@@ -108,24 +117,14 @@ def get_big_CSV(freq, pos, lang):
     output = ""
     dict = {}
 
-    for url in get_URLs: 
-        output.append(get_small_CSV(url, dict, freq, pos, lang))
+    for url in get_URLs(): 
+        output += get_small_CSV(url, dict, freq, pos, lang)
     
     return output
 
 @app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/generate', methods=['GET', 'POST'])
-def generate(): 
-    if request.method == 'POST': 
-        print(get_big_CSV(100, ["N", "R", "V", "J"], "French"))
-
-    return render_template('index.html') 
-
-if __name__ == '__main__':
-    app.run(debug=True)
+def main(): 
+    return "test" + get_big_CSV(100, ["N", "R", "V", "J"], "French")
 
 '''
 @app.route('/get_freq', methods=['POST'])
