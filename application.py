@@ -9,6 +9,7 @@ from functools import reduce
 from collections import Counter
 import nltk
 from translate import Translator
+from deep_translator import GoogleTranslator
 
 app = Flask(__name__)
 CORS(app)
@@ -138,6 +139,8 @@ def get_small_CSV(url, dict, freq, pos, lang):
              'Tamil':'ta', 'Korean':'ko', 'Russian':'ru', 'Italian':'it'}
     
     ISO = lang_code[lang]
+
+    translated_big_string = GoogleTranslator(source='english', target =ISO).translate(big_string)
 
     '''translator = Translator(to_lang=ISO)
     translated_big_string = translator.translate(big_string)'''
