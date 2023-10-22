@@ -152,7 +152,7 @@ def get_small_CSV(url, dict, freq, pos, lang):
     # print(len(newTuples))
     # print(len(translations))
     for i in range(len(translations) - 3):
-        output += f"<p>{newTuples[i][0]} ({expand_POS(newTuples[i][1])}), {translations[i]}</p>"
+        output += f"{newTuples[i][0]} ({expand_POS(newTuples[i][1])}), {translations[i]}"
     
     return output
 
