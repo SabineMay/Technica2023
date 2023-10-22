@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, request, jsonify
 import os
 import io
 from urllib.request import urlopen
@@ -61,10 +61,8 @@ def expand_POS(pos):
     if pos[0] == "J":
         return "Adjective"
 
-def translate_tuple(tuple, lang):
-    translator = Translator(to_lang="es")
-    translation = translator.translate("This is a pen.")
-    print(translation)
+def translate_tuple(tuple): 
+    pass
 
 def get_small_CSV(url, dict, freq, pos, lang): 
     output = ""
@@ -104,9 +102,42 @@ def get_big_CSV(freq, pos, lang):
 
     for url in get_URLs: 
         output.append(get_small_CSV(url, dict, freq, pos, lang))
+    
+    return output
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/generate', methods=['GET', 'POST'])
+def generate(): 
+    if request.method == 'POST': 
+        print(get_big_CSV(100, ["N", "R", "V", "J"], "French"))
+
+    return render_template('index.html') 
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+'''
+@app.route('/get_freq', methods=['POST'])
+def calculate_square():
+    number = float(request.form['number'])
+    result = number ** 2
+    return jsonify({'result': result})
+
+@app.route('/get_lang', methods=['POST'])
+def calculate_cube():
+    number = float(request.form['number'])
+    result = number ** 3
+    return jsonify({'result': result})
+
+@app.route('/get_POS', methods=['POST'])
+def calculate_cube():
+    number = float(request.form['number'])
+    result = number ** 3
+    return jsonify({'result': result}) 
+'''
 
 
-@app.route("/")
-def main():
-    return "<p>Hello, World!</p>"
 
