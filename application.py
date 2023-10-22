@@ -69,7 +69,6 @@ def translate_tuple(tuple, lang):
 
     translator = Translator(to_lang=ISO)
     translation = translator.translate(tuple)
-    
     print(translation)
     return translation
 
@@ -81,7 +80,7 @@ def get_small_CSV(url, dict, freq, pos, lang):
     newTuples = []
 
     for tuple in tuples: 
-        if tuples[1][0] in pos and tuples[1] != "RP": 
+        if tuple[1][0] in pos and tuples[1] != "RP": 
             newTuples.append(tuple)
 
     # Sort tuples by count
@@ -93,23 +92,23 @@ def get_small_CSV(url, dict, freq, pos, lang):
         else: 
             count_dict[newTuple] = 1
 
-    newTuples.sort(key=lambda x: count_dict()[x])
+    newTuples.sort(key=lambda x: count_dict[x])
 
     # Cut list off based on freq
     numElems = int((freq/100)*len(newTuples))
     if numElems == 0: 
         numElems = 1
 
-    newTuples = newTuples[:numElems:]
-    translatedNewTuples = []
+    newTuples = newTuples[:10:]
+    translations = []
 
     # Translate
     for newTuple in newTuples: 
-        translatedNewTuples.append(translate_tuple(newTuple))
+        translations.append(translate_tuple(newTuple[0], lang))
 
     # Put in CSV format
     for i in range(len(newTuples)):
-        output += f"{newTuples[i][0]} ({expand_POS(newTuples[i][1])}),{translatedNewTuples[i][0]}\n"
+        output += f"{newTuples[i][0]} ({expand_POS(newTuples[i][1])}),{translations[i]}\n"
     
     return output
 
@@ -124,7 +123,7 @@ def get_big_CSV(freq, pos, lang):
 
 @app.route('/')
 def main(): 
-    return "test" + get_big_CSV(100, ["N", "R", "V", "J"], "French")
+    return "test" + get_big_CSV(1, ["N", "R", "V", "J"], "French")
 
 '''
 @app.route('/get_freq', methods=['POST'])
