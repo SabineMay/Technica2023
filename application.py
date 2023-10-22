@@ -62,9 +62,15 @@ def expand_POS(pos):
         return "Adjective"
 
 def translate_tuple(tuple, lang):
-    translator = Translator(to_lang="es")
-    translation = translator.translate("This is a pen.")
-    print(translation)
+    lang_code = {'Spanish':'es', 'Chinese':'zh', 'Tagalog':'tl', 'Vietnamese':'vi', 
+             'French':'fr', 'Hindi':'hi', 'Urdu':'ur', 'Arabic':'ar', 'Telugu':'te',
+             'Tamil':'ta', 'Korean':'ko', 'Russian':'ru', 'Italian':'it'}
+    
+    ISO = lang_code[lang]
+
+    translator = Translator(to_lang=ISO)
+    translation = translator.translate(tuple)
+    return translation
 
 def get_small_CSV(url, dict, freq, pos, lang): 
     output = ""
