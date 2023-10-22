@@ -16,7 +16,8 @@ CORS(app)
 
 def get_URLs(): 
     urls = []
-    directory = os.path.join(os.getcwd(), "urls")
+    # directory = os.path.join(os.getcwd(), "urls")
+    directory = '/Users/sabinemay/Downloads/Users/sabinemay/umd-fall-2023/technica2023/urls'
 
     for filename in os.listdir(directory):
         fPath = os.path.join(directory, filename)
@@ -131,7 +132,7 @@ def get_small_CSV(url, dict, freq, pos, lang):
     big_string = ""
     for tuple in newTuples:
         big_string += tuple[0]
-        big_string += ",,"    
+        big_string += " xxx "    
 
     # translate the big string
     lang_code = {'Spanish':'es', 'Chinese':'zh', 'Tagalog':'tl', 'Vietnamese':'vi', 
@@ -144,10 +145,10 @@ def get_small_CSV(url, dict, freq, pos, lang):
 
     # translator = Translator(to_lang=ISO)
     # translated_big_string = translator.translate(big_string)
-    print(translated_big_string)
+    # print(translated_big_string)
 
     # split bigstring on commas (regex or indexing, not ndkl)
-    translations = translated_big_string.split(",,")
+    translations = translated_big_string.split(" xxx ")
 
     # Put in CSV format
     # print(len(newTuples))
@@ -155,7 +156,6 @@ def get_small_CSV(url, dict, freq, pos, lang):
     for i in range(len(translations) - 3):
         output += f"({newTuples[i][0]} ({expand_POS(newTuples[i][1])}), {translations[i]})"
     
-    print(output)
     return output
 
 def get_big_CSV(freq, pos, lang): 
