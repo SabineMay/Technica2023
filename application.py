@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 import os
 import io
 from urllib.request import urlopen
@@ -10,6 +11,7 @@ import nltk
 from translate import Translator
 
 app = Flask(__name__)
+CORS(app)
 
 def get_URLs(): 
     urls = []
@@ -161,8 +163,9 @@ def get_big_CSV(freq, pos, lang):
     '''for url in get_URLs(): 
         output += get_small_CSV(url, dict, freq, pos, lang)
     
-    print("test" + output)'''
-    return lang
+    '''
+
+    return output
 
 @app.route('/')
 def main(): 
@@ -171,24 +174,11 @@ def main():
 @app.route('/generate', methods=['POST'])
 def generate_csv():
     data = request.json
-    languages = data['languages']
+    lang = data['languages'][0]
+    freqs = data['freqs']
+    pos = data['pos']
 
-    if "French" in languages:
-        # You can customize the behavior based on received language
-        response = get_big_CSV(0, ["N", "R", "V", "J"], "French")
-    elif "Spanish" in languages:
-        # You can customize the behavior based on received language
-        response = get_big_CSV(0, ["N", "R", "V", "J"], "Spanish")
-    elif "Telugu" in languages:
-        # You can customize the behavior based on received language
-        response = get_big_CSV(0, ["N", "R", "V", "J"], "Telugu")
-    if "Hindi" in languages:
-        # You can customize the behavior based on received language
-        response = get_big_CSV(0, ["N", "R", "V", "J"], "Hindi")
-    if "Chinese" in languages:
-        # You can customize the behavior based on received language
-        response = get_big_CSV(0, ["N", "R", "V", "J"], "Chinese")
-
+    response = get_big_CSV(freqs[0], pos, lang)
     return response
     
 

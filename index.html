@@ -12,6 +12,14 @@
     <label><input type="checkbox" name="language" value="Telugu"> Telugu</label>
     <label><input type="checkbox" name="language" value="Hindi"> Hindi</label>
     <label><input type="checkbox" name="language" value="Chinese"> Chinese</label>
+    <label><input type="checkbox" name="freq" value="10"> 10%</label>
+    <label><input type="checkbox" name="freq" value="20"> 20%</label>
+    <label><input type="checkbox" name="freq" value="30"> 30%</label>
+    <label><input type="checkbox" name="pos" value="J"> Adjectives</label>
+    <label><input type="checkbox" name="pos" value="N"> Nouns</label>
+    <label><input type="checkbox" name="pos" value="V"> Verbs</label>
+    <label><input type="checkbox" name="pos" value="R"> Adverbs</label>
+    
     <button id="generate">Generate</button>
     <div id="output"></div>
 
@@ -21,6 +29,17 @@
             $('input[name="language"]:checked').each(function() {
                 selectedLanguages.push($(this).val());
             });
+            
+            let freqs = [];
+            $('input[name="freq"]:checked').each(function() {
+                freqs.push($(this).val());
+            });
+
+            let pos = [];
+            $('input[name="pos"]:checked').each(function() {
+                pos.push($(this).val());
+            });
+
 
             // Assuming your Flask server is running on localhost:5000
             fetch('/generate', {
@@ -28,7 +47,7 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({languages: selectedLanguages}),
+                body: JSON.stringify({languages: selectedLanguages, freqs: freqs, pos: pos}),
             }).then(response => response.text())
             .then(data => {
                 // Handle the response data from the server
