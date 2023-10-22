@@ -61,8 +61,10 @@ def expand_POS(pos):
     if pos[0] == "J":
         return "Adjective"
 
-def translate_tuple(tuple): 
-    pass
+def translate_tuple(tuple, lang):
+    translator = Translator(to_lang="es")
+    translation = translator.translate("This is a pen.")
+    print(translation)
 
 def get_small_CSV(url, dict, freq, pos, lang): 
     output = ""
