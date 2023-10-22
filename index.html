@@ -4,24 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSV Generator</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <label><input type="checkbox" name="language" value="French"> French</label>
-    <label><input type="checkbox" name="language" value="Spanish"> Spanish</label>
-    <label><input type="checkbox" name="language" value="Telugu"> Telugu</label>
-    <label><input type="checkbox" name="language" value="Hindi"> Hindi</label>
-    <label><input type="checkbox" name="language" value="Chinese"> Chinese</label>
-    <label><input type="checkbox" name="freq" value="10"> 10%</label>
-    <label><input type="checkbox" name="freq" value="20"> 20%</label>
-    <label><input type="checkbox" name="freq" value="30"> 30%</label>
-    <label><input type="checkbox" name="pos" value="J"> Adjectives</label>
-    <label><input type="checkbox" name="pos" value="N"> Nouns</label>
-    <label><input type="checkbox" name="pos" value="V"> Verbs</label>
-    <label><input type="checkbox" name="pos" value="R"> Adverbs</label>
-    
-    <button id="generate">Generate</button>
-    <div id="output"></div>
+    <div id="wrapper">
+        <h1>
+            ChunkZ
+        </h1>
+
+        <strong>Select your language</strong><br>
+        <label><input type="checkbox" name="language" value="French"> French</label>
+        <label><input type="checkbox" name="language" value="Spanish"> Spanish</label>
+        <label><input type="checkbox" name="language" value="Telugu"> Telugu</label>
+        <label><input type="checkbox" name="language" value="Hindi"> Hindi</label>
+        <label><input type="checkbox" name="language" value="Chinese"> Chinese</label><br><br>
+
+        <strong>Select the top percent of words you want to learn</strong><br>
+        <label><input type="checkbox" name="freq" value="10"> 10%</label>
+        <label><input type="checkbox" name="freq" value="20"> 20%</label>
+        <label><input type="checkbox" name="freq" value="30"> 30%</label><br><br>
+
+        <strong>Select the parts of speech you want to focus on</strong><br>
+        <label><input type="checkbox" name="pos" value="J"> Adjectives</label>
+        <label><input type="checkbox" name="pos" value="N"> Nouns</label>
+        <label><input type="checkbox" name="pos" value="V"> Verbs</label>
+        <label><input type="checkbox" name="pos" value="R"> Adverbs</label><br><br>
+        
+        <button id="generate">Generate</button>
+        <div id="output"></div>
+    </div>
 
     <script>
         $('#generate').click(function() {
