@@ -146,4 +146,3 @@ def calculate_cube():
     return jsonify({'result': result}) 
 '''
 
-
