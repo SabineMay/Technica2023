@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, Response, render_template_string
+from markupsafe import Markup
 from flask_cors import CORS
 import os
 import io
@@ -16,7 +17,8 @@ CORS(app)
 
 def get_URLs(): 
     urls = []
-    directory = os.path.join(os.getcwd(), "urls")
+    # directory = os.path.join(os.getcwd(), "urls")
+    directory = '/Users/sabinemay/Downloads/Users/sabinemay/umd-fall-2023/technica2023/urls'
 
     for filename in os.listdir(directory):
         fPath = os.path.join(directory, filename)
@@ -131,7 +133,7 @@ def get_small_CSV(url, dict, freq, pos, lang):
     big_string = ""
     for tuple in newTuples:
         big_string += tuple[0]
-        big_string += ",,"    
+        big_string += " xxx "    
 
     # translate the big string
     lang_code = {'Spanish':'es', 'Chinese':'zh', 'Tagalog':'tl', 'Vietnamese':'vi', 
@@ -142,17 +144,22 @@ def get_small_CSV(url, dict, freq, pos, lang):
 
     translated_big_string = GoogleTranslator(source='english', target =ISO).translate(big_string)
 
-    '''translator = Translator(to_lang=ISO)
-    translated_big_string = translator.translate(big_string)'''
+    # translator = Translator(to_lang=ISO)
+    # translated_big_string = translator.translate(big_string)
+    # print(translated_big_string)
 
     # split bigstring on commas (regex or indexing, not ndkl)
-    translations = translated_big_string.split(",,")
+    translations = translated_big_string.split(" xxx ")
 
     # Put in CSV format
     # print(len(newTuples))
     # print(len(translations))
     for i in range(len(translations) - 3):
+<<<<<<< HEAD
         output += f"({newTuples[i][0]} ({expand_POS(newTuples[i][1])}), {translations[i]})"
+=======
+        output += f"{newTuples[i][0]} ({expand_POS(newTuples[i][1])}), {translations[i]}<br>"
+>>>>>>> e84ae36932eef2324dd7bef537803d3290de9ab9
     
     return output
 
@@ -177,7 +184,7 @@ def generate_csv():
     pos = data['pos']
 
     response = get_big_CSV(int(freqs[0]), pos, lang)
-    return response
+    return Response(response, content_type = 'text/html')
     
 
 if __name__ == '__main__':
