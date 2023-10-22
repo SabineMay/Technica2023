@@ -162,11 +162,8 @@ def get_big_CSV(freq, pos, lang):
     output = ""
     dict = {}
 
-    '''for url in get_URLs(): 
+    for url in get_URLs(): 
         output += get_small_CSV(url, dict, freq, pos, lang)
-    '''
-
-    output += freq + lang
 
     return output
 
