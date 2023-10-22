@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, Response, render_template_string
+from markupsafe import Markup
 from flask_cors import CORS
 import os
 import io
@@ -154,7 +155,7 @@ def get_small_CSV(url, dict, freq, pos, lang):
     # print(len(newTuples))
     # print(len(translations))
     for i in range(len(translations) - 3):
-        output += f"({newTuples[i][0]} ({expand_POS(newTuples[i][1])}), {translations[i]})"
+        output += f"{newTuples[i][0]} ({expand_POS(newTuples[i][1])}), {translations[i]}<br>"
     
     return output
 
@@ -179,7 +180,7 @@ def generate_csv():
     pos = data['pos']
 
     response = get_big_CSV(int(freqs[0]), pos, lang)
-    return response
+    return Response(response, content_type = 'text/html')
     
 
 if __name__ == '__main__':

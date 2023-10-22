@@ -4,11 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSV Generator</title>
-    <!--<link rel="stylesheet" href="style.css" type="text/css">-->
+    <!--<<link rel="stylesheet" href="style.css" type="text/css">>-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div id="wrapper">
+    <div id="wrapper" style="padding-top: 1%;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-bottom: 3%;
+    margin-right: 30%;
+    margin-left: 30%;
+    border: rgba(92, 38, 38, 0.682) 1rem;
+    border-radius: 2px;
+    border-style: groove;"">
         
         <h1>
             ChunkZ
@@ -64,7 +72,7 @@
             }).then(response => response.text())
             .then(data => {
                 // Handle the response data from the server
-                $('#output').text(data);
+                $('#output').html(data);
                 console.log(data);
                 // E.g., you can display the data in a div or download it as a file
             });
