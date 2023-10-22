@@ -142,8 +142,9 @@ def get_small_CSV(url, dict, freq, pos, lang):
 
     translated_big_string = GoogleTranslator(source='english', target =ISO).translate(big_string)
 
-    '''translator = Translator(to_lang=ISO)
-    translated_big_string = translator.translate(big_string)'''
+    # translator = Translator(to_lang=ISO)
+    # translated_big_string = translator.translate(big_string)
+    print(translated_big_string)
 
     # split bigstring on commas (regex or indexing, not ndkl)
     translations = translated_big_string.split(",,")
@@ -152,8 +153,9 @@ def get_small_CSV(url, dict, freq, pos, lang):
     # print(len(newTuples))
     # print(len(translations))
     for i in range(len(translations) - 3):
-        output += f"{newTuples[i][0]} ({expand_POS(newTuples[i][1])}), {translations[i]}"
+        output += f"({newTuples[i][0]} ({expand_POS(newTuples[i][1])}), {translations[i]})"
     
+    print(output)
     return output
 
 def get_big_CSV(freq, pos, lang): 
