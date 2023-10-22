@@ -144,9 +144,6 @@ def get_small_CSV(url, dict, freq, pos, lang):
 
     '''translator = Translator(to_lang=ISO)
     translated_big_string = translator.translate(big_string)'''
-    
-    print(big_string)
-    print(translated_big_string)
 
     # split bigstring on commas (regex or indexing, not ndkl)
     translations = translated_big_string.split(",,")
