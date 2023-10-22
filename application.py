@@ -99,7 +99,7 @@ def get_small_CSV(url, dict, freq, pos, lang):
     if numElems == 0: 
         numElems = 1
 
-    newTuples = newTuples[:10:]
+    newTuples = newTuples[:numElems:]
     translations = []
 
     # Translate
