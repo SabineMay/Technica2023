@@ -1,0 +1,20 @@
+body {
+    padding: 5%;
+    font-size: 1.2rem;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+#wrapper {
+    padding-top: 1%;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-bottom: 3%;
+    margin-right: 30%;
+    margin-left: 30%;
+    border: rgba(92, 38, 38, 0.682) 1rem;
+    border-radius: 2px;
+    border-style: groove;
+}

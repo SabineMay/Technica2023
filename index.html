@@ -1,12 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Flask Hello World</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Generator</title>
+    <!--<<link rel="stylesheet" href="style.css" type="text/css">>-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1>Click the button to say hello!</h1>
-    <form method="POST">
-        <button type="generate">Generate CSV</button>
-    </form>
+    <div id="wrapper" style="padding-top: 1%;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-bottom: 3%;
+    margin-right: 30%;
+    margin-left: 30%;
+    border: rgba(92, 38, 38, 0.682) 1rem;
+    border-radius: 2px;
+    border-style: groove;"">
+        
+        <h1>
+            ChunkZ
+        </h1>
+
+        <strong>Select your language</strong><br>
+        <label><input type="checkbox" name="language" value="French"> French</label>
+        <label><input type="checkbox" name="language" value="Spanish"> Spanish</label>
+        <label><input type="checkbox" name="language" value="Telugu"> Telugu</label>
+        <label><input type="checkbox" name="language" value="Hindi"> Hindi</label>
+        <label><input type="checkbox" name="language" value="Chinese"> Chinese</label><br><br>
+
+        <strong>Select the top percent of words you want to learn</strong><br>
+        <label><input type="checkbox" name="freq" value="10"> 10%</label>
+        <label><input type="checkbox" name="freq" value="20"> 20%</label>
+        <label><input type="checkbox" name="freq" value="30"> 30%</label><br><br>
+
+        <strong>Select the parts of speech you want to focus on</strong><br>
+        <label><input type="checkbox" name="pos" value="J"> Adjectives</label>
+        <label><input type="checkbox" name="pos" value="N"> Nouns</label>
+        <label><input type="checkbox" name="pos" value="V"> Verbs</label>
+        <label><input type="checkbox" name="pos" value="R"> Adverbs</label><br><br>
+        
+        <button id="generate">Generate</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        $('#generate').click(function() {
+            let selectedLanguages = [];
+            $('input[name="language"]:checked').each(function() {
+                selectedLanguages.push($(this).val());
+            });
+            
+            let freqs = [];
+            $('input[name="freq"]:checked').each(function() {
+                freqs.push($(this).val());
+            });
+
+            let pos = [];
+            $('input[name="pos"]:checked').each(function() {
+                pos.push($(this).val());
+            });
+
+
+            // Assuming your Flask server is running on localhost:5000
+            fetch('/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({languages: selectedLanguages, freqs: freqs, pos: pos}),
+            }).then(response => response.text())
+            .then(data => {
+                // Handle the response data from the server
+                $('#output').html(data);
+                console.log(data);
+                // E.g., you can display the data in a div or download it as a file
+            });
+        });
+    </script>
 </body>
 </html>
